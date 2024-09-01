@@ -15,6 +15,7 @@ interface ProjectCardProps {
   description: string;
   imagePath: string;
   projectUrl: string;
+  githubPath: string;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -22,6 +23,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   description,
   imagePath,
   projectUrl,
+  githubPath,
 }) => {
   const [showMore, setShowMore] = useState(false);
   const [isTruncated, setIsTruncated] = useState(false);
@@ -79,6 +81,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </Stack>
         <Link href={projectUrl} color="teal.500" isExternal mt="4">
           Se prosjektet
+        </Link>
+        <Link href={githubPath} color="teal.500" isExternal mt="4">
+          Github
         </Link>
       </Flex>
     </Flex>
