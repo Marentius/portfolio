@@ -1,21 +1,11 @@
-import {
-  Box,
-  Image,
-  Heading,
-  Text,
-  Stack,
-  Link,
-  Flex,
-  Button,
-} from "@chakra-ui/react";
-import { useState, useRef, useEffect } from "react";
+import { Box, Image, Heading, Text, Stack, Link, Flex } from "@chakra-ui/react";
 
 interface ProjectCardProps {
   title: string;
   description: string;
   imagePath: string;
   projectUrl: string;
-  githubPath: string;
+  githubPath?: string; // Optional GitHub path
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -24,70 +14,51 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   imagePath,
   projectUrl,
   githubPath,
-}) => {
-  const [showMore, setShowMore] = useState(false);
-  const [isTruncated, setIsTruncated] = useState(false);
-  const textRef = useRef<HTMLParagraphElement>(null);
+}) => (
+  <Flex
+    direction="column"
+    borderRadius="xl"
+    overflow="hidden"
+    height="100%" // Sørger for at kortet fyller hele cellen i Grid
+    boxShadow="lg"
+    bg="teal.700"
+    border="1px solid"
+    borderColor="teal.500"
+  >
+    <Box width="100%" position="relative" paddingBottom="56.25%">
+      <Image
+        src={imagePath}
+        alt={title}
+        position="absolute"
+        top="0"
+        left="0"
+        width="100%"
+        height="100%"
+        objectFit="cover"
+      />
+    </Box>
 
-  useEffect(() => {
-    if (textRef.current) {
-      // Sjekker om teksten er avkortet
-      setIsTruncated(
-        textRef.current.scrollHeight > textRef.current.clientHeight
-      );
-    }
-  }, [description]);
-
-  return (
-    <Flex
-      direction="column"
-      borderWidth="1px"
-      borderRadius="lg"
-      overflow="hidden"
-      maxW="sm"
-      width="100%"
-      flex="1"
-    >
-      <Box width="100%" position="relative" paddingBottom="100%">
-        <Image
-          src={imagePath}
-          alt={title}
-          position="absolute"
-          top="0"
-          left="0"
-          width="100%"
-          height="100%"
-          objectFit="cover"
-        />
-      </Box>
-
-      <Flex direction="column" p="6" flex="1">
-        <Stack spacing="3" flex="1">
-          <Heading as="h3" size="md">
-            {title}
-          </Heading>
-          <Text ref={textRef} noOfLines={showMore ? undefined : 3}>
-            {description}
-          </Text>
-          {isTruncated && (
-            <Button
-              variant="link"
-              colorScheme="teal"
-              onClick={() => setShowMore(!showMore)}
-            >
-              {showMore ? "Vis mindre" : "Les mer"}
-            </Button>
-          )}
-        </Stack>
-        <Link href={projectUrl} color="teal.500" isExternal mt="4">
+    <Flex direction="column" p="6" flex="1" bg="gray.900">
+      <Stack spacing="3" flex="1">
+        <Heading as="h3" size="lg" color="white">
+          {title}
+        </Heading>
+        <Text flex="1" color="gray.300">
+          {description}
+        </Text>
+      </Stack>
+      <Stack mt="4" spacing="3">
+        <Link href={projectUrl} color="teal.200" isExternal>
           Se prosjektet
         </Link>
-        <Link href={githubPath} color="teal.500" isExternal mt="4">
-          Github
-        </Link>
-      </Flex>
+        {githubPath && (
+          <Link href={githubPath} color="teal.200" isExternal>
+            Se på GitHub
+          </Link>
+        )}
+      </Stack>
     </Flex>
-  );
-};
+  </Flex>
+);
 
 export default ProjectCard;

@@ -23,8 +23,8 @@ const colors = {
 };
 
 const config = {
-  initialColorMode: "light",
-  useSystemColorMode: true,
+  initialColorMode: "dark", // Endret til 'dark' for å starte i Dark Mode
+  useSystemColorMode: false, // Ignorerer systemets innstilling
 };
 
 const theme = extendTheme({ config, colors });

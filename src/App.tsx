@@ -1,6 +1,4 @@
-// src/App.tsx
-
-import { Flex, HStack, Heading, Container } from "@chakra-ui/react";
+import { Flex, Grid, Heading, Container } from "@chakra-ui/react";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import ProjectCard from "./components/ProjectCard";
@@ -19,7 +17,11 @@ function App() {
           Prosjekter
         </Heading>
         <Container maxW="1200px" centerContent>
-          <HStack spacing={8} alignItems="stretch" justifyContent="center">
+          <Grid
+            templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} // 1 kolonne på mobil, 3 på større skjermer
+            gap={8} // Mellomrom mellom kortene
+            width="100%"
+          >
             <ProjectCard
               title="Almesus"
               description="Et nettside jeg opprettet for en liten festival i Jelsnes for å teste opplasting av videoer og bilder via Google Cloud. Alle bilder og videoer er tatt og redigert av meg."
@@ -41,7 +43,7 @@ function App() {
               projectUrl="https://open.spotify.com/artist/6eezeSrQEa1LhxarGi1b06?si=pL7ev2trS7CE97zfkvDtxQ"
               githubPath=""
             />
-          </HStack>
+          </Grid>
         </Container>
       </Flex>
 
