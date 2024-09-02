@@ -6,7 +6,8 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { FaMoon } from "react-icons/fa";
+import { LuSun } from "react-icons/lu";
 
 const Nav = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -37,7 +38,7 @@ const Nav = () => {
         </Heading>
         <IconButton
           aria-label="Toggle dark mode"
-          icon={colorMode === "light" ? <FaMoon /> : <FaSun />}
+          icon={colorMode === "light" ? <FaMoon /> : <LuSun />}
           onClick={toggleColorMode}
           position="absolute"
           right={4}
