@@ -64,12 +64,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
       <Flex direction="column" p="6" flex="1" color={textColor}>
         <Stack spacing="3" flex="1">
-          <Heading as="h3" size="lg">
+          <Heading as="h3" size="lg" textAlign="center">
             <LinkOverlay as={Link} to={projectUrl}>
               {title}
             </LinkOverlay>
           </Heading>
-          <Text flex="1">{description}</Text>
+          <Text flex="1" textAlign="center">
+            {description}
+          </Text>
+          <Text fontSize={"sm"} textAlign="center">
+            Ferdigheter
+          </Text>
         </Stack>
 
         {/* HStack for verktøy-ikoner */}

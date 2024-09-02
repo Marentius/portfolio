@@ -22,7 +22,6 @@ function ProjectDetails() {
     return <Text>Prosjektet ble ikke funnet.</Text>;
   }
 
-  // Farger for knappene
   const buttonBg = useColorModeValue("white", "gray.700");
   const buttonText = useColorModeValue("gray.800", "white");
 
