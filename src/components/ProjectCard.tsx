@@ -11,14 +11,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { IconType } from "react-icons"; // Importer typen for ikoner
+import { IconType } from "react-icons";
 
 interface ProjectCardProps {
   title: string;
   description: string;
   imagePath: string;
   projectUrl: string;
-  tools: IconType[]; // Bruker IconType array
+  tools: IconType[];
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -49,38 +49,41 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         boxShadow: "xl", // Økt skygge ved hover
       }}
     >
-      <Box width="100%" position="relative" paddingBottom="56.25%">
+      {/* Image Box */}
+      <Box width="100%" flexShrink={0}>
+        {" "}
+        {/* Sørger for at bildet ikke tar opp all plass */}
         <Image
           src={imagePath}
           alt={title}
-          position="absolute"
-          top="0"
-          left="0"
+          height="200px" // Fast høyde for å sikre plass til andre elementer
           width="100%"
-          height="100%"
           objectFit="cover"
         />
       </Box>
 
-      <Flex direction="column" p="6" flex="1" color={textColor}>
+      {/* Text and Tools Flex Container */}
+      <Flex direction="column" p="4" flex="1" color={textColor}>
+        {" "}
+        {/* Mindre padding for mer plass */}
         <Stack spacing="3" flex="1">
-          <Heading as="h3" size="lg" textAlign="center">
+          <Heading as="h3" size="md" textAlign="center">
+            {" "}
+            {/* Juster til size="md" for å spare plass */}
             <LinkOverlay as={Link} to={projectUrl}>
               {title}
             </LinkOverlay>
           </Heading>
-          <Text flex="1" textAlign="center">
+          <Text textAlign="center" fontSize="sm">
+            {" "}
+            {/* Mindre skriftstørrelse for beskrivelsen */}
             {description}
           </Text>
-          <Text fontSize={"sm"} textAlign="center">
-            Ferdigheter
-          </Text>
         </Stack>
-
         {/* HStack for verktøy-ikoner */}
         <HStack spacing={4} mt={4} justify="center">
           {tools.map((ToolIcon, index) => (
-            <ToolIcon key={index} size="30px" color={textColor} />
+            <ToolIcon key={index} size="24px" color={textColor} />
           ))}
         </HStack>
       </Flex>
