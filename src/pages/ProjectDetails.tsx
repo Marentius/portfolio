@@ -1,5 +1,4 @@
-// src/pages/ProjectDetails.tsx
-
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {
   Heading,
@@ -14,6 +13,7 @@ import { projectsData } from "../data/projectsData";
 
 function ProjectDetails() {
   const { projectId } = useParams<{ projectId: string }>();
+  const navigate = useNavigate();
 
   // Finn riktig prosjekt basert på projectId fra URL
   const project = projectsData.find((proj) => proj.id === projectId);
@@ -28,9 +28,14 @@ function ProjectDetails() {
 
   return (
     <Container maxW="800px" mt={10} mb={20}>
-      {" "}
-      {/* Legg til mb={20} for å legge til luft mellom main og footer */}
       <VStack spacing={8}>
+        <Button
+          onClick={() => navigate("/")}
+          colorScheme="teal"
+          alignSelf="flex-start"
+        >
+          Tilbake
+        </Button>
         <Heading as="h1" size="2xl">
           {project.title}
         </Heading>
