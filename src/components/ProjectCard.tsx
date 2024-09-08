@@ -1,11 +1,24 @@
-import { Box, Image, Heading, Text, Stack, Link, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Heading,
+  Text,
+  Stack,
+  LinkBox,
+  LinkOverlay,
+  Flex,
+  HStack,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { IconType } from "react-icons";
 
 interface ProjectCardProps {
   title: string;
   description: string;
   imagePath: string;
   projectUrl: string;
-  githubPath?: string; // Optional GitHub path
+  tools: IconType[];
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -13,52 +26,68 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   description,
   imagePath,
   projectUrl,
-  githubPath,
-}) => (
-  <Flex
-    direction="column"
-    borderRadius="xl"
-    overflow="hidden"
-    height="100%" // Sørger for at kortet fyller hele cellen i Gri
-    boxShadow="lg"
-    bg="teal.700"
-    border="1px solid"
-    borderColor="teal.500"
-  >
-    <Box width="100%" position="relative" paddingBottom="56.25%">
-      <Image
-        src={imagePath}
-        alt={title}
-        position="absolute"
-        top="0"
-        left="0"
-        width="100%"
-        height="100%"
-        objectFit="cover"
-      />
-    </Box>
+  tools,
+}) => {
+  const cardBg = useColorModeValue("gray.100", "gray.700");
+  const cardBorderColor = useColorModeValue("gray.200", "gray.600");
+  const textColor = useColorModeValue("gray.800", "white");
 
-    <Flex direction="column" p="6" flex="1" bg="gray.900">
-      <Stack spacing="3" flex="1">
-        <Heading as="h3" size="lg" color="white">
-          {title}
-        </Heading>
-        <Text flex="1" color="gray.300">
-          {description}
-        </Text>
-      </Stack>
-      <Stack mt="4" spacing="3">
-        <Link href={projectUrl} color="teal.200" isExternal>
-          Se prosjektet
-        </Link>
-        {githubPath && (
-          <Link href={githubPath} color="teal.200" isExternal>
-            Se på GitHub
-          </Link>
-        )}
-      </Stack>
-    </Flex>
-  </Flex>
-);
+  return (
+    <LinkBox
+      as={Flex}
+      direction="column"
+      borderRadius="xl"
+      overflow="hidden"
+      height="100%"
+      boxShadow="lg"
+      bg={cardBg}
+      border="1px solid"
+      borderColor={cardBorderColor}
+      transition="transform 0.3s, box-shadow 0.3s"
+      _hover={{
+        transform: "scale(1.05)", // Litt forstørrelse ved hover
+        boxShadow: "xl", // Økt skygge ved hover
+      }}
+    >
+      <Box width="100%" flexShrink={0}>
+        {" "}
+        {/* Sørger for at bildet ikke tar opp all plass */}
+        <Image
+          src={imagePath}
+          alt={title}
+          height="200px" // Fast høyde for å sikre plass til andre elementer
+          width="100%"
+          objectFit="cover"
+        />
+      </Box>
+
+      {/* Text and Tools Flex Container */}
+      <Flex direction="column" p="4" flex="1" color={textColor}>
+        {" "}
+        {/* Mindre padding for mer plass */}
+        <Stack spacing="3" flex="1">
+          <Heading as="h3" size="md" textAlign="center">
+            {" "}
+            {/* Juster til size="md" for å spare plass */}
+            <LinkOverlay as={Link} to={projectUrl}>
+              {title}
+            </LinkOverlay>
+          </Heading>
+          <Text textAlign="center" fontSize="sm">
+            {" "}
+            {/* Mindre skriftstørrelse for beskrivelsen */}
+            {description}
+          </Text>
+        </Stack>
+        {/* HStack for verktøy-ikoner */}
+        <HStack spacing={4} mt={4} justify="center">
+          {tools.map((ToolIcon, index) => (
+            <ToolIcon key={index} size="24px" color={textColor} />
+          ))}
+        </HStack>
+      </Flex>
+    </LinkBox>
+  );
+};
 
 export default ProjectCard;

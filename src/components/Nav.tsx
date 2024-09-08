@@ -5,50 +5,44 @@ import {
   IconButton,
   useColorMode,
   useColorModeValue,
-  useBreakpointValue,
 } from "@chakra-ui/react";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { FaMoon } from "react-icons/fa";
+import { LuSun } from "react-icons/lu";
 
 const Nav = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
-  // Bruker eksplisitt typekasting for å unngå feil
-  const flexDirection =
-    useBreakpointValue<"column" | "row">({ base: "column", md: "row" }) ||
-    "row";
+  // Dynamisk bakgrunnsfarge basert på fargemodus
+  const bgColor = useColorModeValue("white", "gray.900");
+  const textColor = useColorModeValue("gray.800", "white");
 
   return (
     <Box
       as="nav"
-      bg={useColorModeValue("gray.100", "darkGray.800")}
+      bg={bgColor} // Bruker dynamisk bakgrunnsfarge
+      color={textColor} // Bruker dynamisk tekstfarge
       p={6}
       height="80px"
     >
       <Flex
-        direction={flexDirection}
-        justify="center" // Holder overskriften sentrert
+        direction="row"
+        justify="center"
         align="center"
         maxW="1200px"
         mx="auto"
         h="100%"
         wrap="nowrap"
       >
-        <Flex flex="1" justify="center">
-          <Heading
-            as="h1"
-            fontSize={useBreakpointValue({ base: "lg", md: "2xl" })}
-            textAlign="center"
-          >
-            Vetle Marentius Nilsen
-          </Heading>
-        </Flex>
+        <Heading as="h1" size="lg" textAlign="center">
+          Vetle Marentius Nilsen
+        </Heading>
         <IconButton
           aria-label="Toggle dark mode"
-          icon={colorMode === "light" ? <FaMoon /> : <FaSun />}
+          icon={colorMode === "light" ? <FaMoon /> : <LuSun />}
           onClick={toggleColorMode}
-          size="lg"
           position="absolute"
-          right={4} // Legg til litt padding til høyre
+          right={4}
+          size="lg"
         />
       </Flex>
     </Box>
