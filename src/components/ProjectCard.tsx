@@ -49,7 +49,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         boxShadow: "xl", // Økt skygge ved hover
       }}
     >
-      {/* Image Box */}
       <Box width="100%" flexShrink={0}>
         {" "}
         {/* Sørger for at bildet ikke tar opp all plass */}
